@@ -1,6 +1,6 @@
 FROM alpine:3.14
 
-RUN apk add --no-cache bash
+RUN apk add bash
 
 ENV GEODESIC_VERSION=1.3.6
 
