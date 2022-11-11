@@ -1,23 +1,24 @@
-name: 'Example composite GitHub action'
-description: 'Example composite GitHub action'
+name: 'AWS region reduction map'
+description: 'Converts AWS region names from full names to either "fixed" (always 3 characters) or "short" (usually 4 or 5 characters) abbreviations, following the same map as https://github.com/cloudposse/terraform-aws-utils'
 author: hello@cloudposse.com
 branding:
   icon: 'file'
   color: 'white'
 inputs:
-  param1:
+  region:
     required: true
-    description: "Input parameter placeholder"
-    default: "true"
+    description: "Input region code"
+  format:
+    required: false
+    description: |-
+      Format convert to. Valid values ('long', 'short', 'fixed'). 
+      If empty short and fixed inputs are converted to long, long inputs are converted to fixed.
 outputs:
-  result1:
-    description: "Output result placeholder"
-    value: "${{ steps.context.outputs.action-result }}"
+  result:
+    description: "Converted AWS region"
 runs:
-  using: "composite"
-  steps:
-    - id: context
-      shell: bash
-      run: |
-          echo "::set-output name=action-result::${{ inputs.param1 }}"
-
+  using: 'docker'
+  image: 'Dockerfile'
+  env:
+    REGION: ${{ inputs.region }}
+    FORMAT: ${{ inputs.format }}
