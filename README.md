@@ -115,7 +115,7 @@ See https://github.com/jsonmaur/aws-regions for more complete list
 
 
 
-## Convert AWS region (ex.: `us-west-2`) to fixed abbreviation - will be `uw2`.
+### Convert AWS region (ex.: `us-west-2`) to fixed abbreviation - will be `uw2`.
 ```yaml
   name: Pull Request
   on:
@@ -138,7 +138,7 @@ See https://github.com/jsonmaur/aws-regions for more complete list
         result: ${{ steps.aws_map.outputs.result }}
 ```
 
-## Convert AWS region (ex.: `us-west-2`) to short abbreviation - will be `usw2`.
+### Convert AWS region (ex.: `us-west-2`) to short abbreviation - will be `usw2`.
 ```yaml
   name: Pull Request
   on:
@@ -160,7 +160,7 @@ See https://github.com/jsonmaur/aws-regions for more complete list
         result: ${{ steps.aws_map.outputs.result }}
 ```
 
-## Convert short AWS region (ex.: `usw2`) to long abbreviation - will be `us-west-2`.
+### Convert short AWS region (ex.: `usw2`) to long abbreviation - will be `us-west-2`.
 ```yaml
   name: Pull Request
   on:
@@ -182,7 +182,7 @@ See https://github.com/jsonmaur/aws-regions for more complete list
         result: ${{ steps.aws_map.outputs.result }}
 ```
 
-## Convert fixed AWS region (ex.: `uw2`) to long abbreviation - will be `us-west-2`.
+### Convert fixed AWS region (ex.: `uw2`) to long abbreviation - will be `us-west-2`.
 ```yaml
   name: Pull Request
   on:
