@@ -1,5 +1,5 @@
 name: 'AWS region reduction map'
-description: 'Converts AWS region names from full names to either "fixed" (always 3 characters) or "short" (usually 4 or 5 characters) abbreviations, following the same map as https://github.com/cloudposse/terraform-aws-utils'
+description: 'Converts AWS region names from full names to either "fixed" or "short" abbreviations'
 author: hello@cloudposse.com
 branding:
   icon: 'file'
