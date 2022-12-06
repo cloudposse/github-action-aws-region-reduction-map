@@ -79,6 +79,34 @@ aws ec2 describe-regions --all-regions --query "Regions[].{Name:RegionName}" --o
 but actually it leaves out GovCloud and China
 See https://github.com/jsonmaur/aws-regions for more complete list
 
+|       long       | fixed |  short  |
+|------------------|-------|---------|  
+| `ap-east-1`      | `ae1` | `ape1`  |
+| `ap-northeast-1` | `an1` | `apne1` |
+| `ap-northeast-2` | `an2` | `apne2` |
+| `ap-northeast-3` | `an3` | `apne3` |
+| `ap-south-1`     | `as0` | `aps1`  |
+| `ap-southeast-1` | `as1` | `apse1` |
+| `ap-southeast-2` | `as2` | `apse2` |
+| `ca-central-1`   | `cc1` | `cac1`  |
+| `eu-central-1`   | `ec1` | `euc1`  |
+| `eu-north-1`     | `en1` | `eun1`  |
+| `eu-south-1`     | `es1` | `eus1`  |
+| `eu-west-1`      | `ew1` | `euw1`  |
+| `eu-west-2`      | `ew2` | `euw2`  |
+| `eu-west-3`      | `ew3` | `euw3`  |
+| `af-south-1`     | `fs1` | `afs1`  |
+| `us-gov-east-1`  | `ge1` | `usge1` |
+| `us-gov-west-1`  | `gw1` | `usgw1` |
+| `me-south-1`     | `ms1` | `mes1`  |
+| `cn-north-1`     | `nn0` | `cnn1`  |
+| `cn-northwest-1` | `nn1` | `cnnw1` |
+| `sa-east-1`      | `se1` | `sae1`  |
+| `us-east-1`      | `ue1` | `use1`  |
+| `us-east-2`      | `ue2` | `use2`  |
+| `us-west-1`      | `uw1` | `usw1`  |
+| `us-west-2`      | `uw2` | `usw2`  |
+
 
 
 
