@@ -75,7 +75,9 @@ is the first character of each part. Exceptions (due to collisions):
 - cn-north-1 is shortened to nn0 to avoid conflict with cn-northwest-1
 
 You should be able to list all regions with this command:
+```shell
 aws ec2 describe-regions --all-regions --query "Regions[].{Name:RegionName}" --output text
+```
 but actually it leaves out GovCloud and China
 See https://github.com/jsonmaur/aws-regions for more complete list
 
