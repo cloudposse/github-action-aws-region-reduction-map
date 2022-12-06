@@ -25,7 +25,7 @@ jobs:
       - uses: ./
         id: current
         with:
-          region: 'uw2'
+          region: 'us-west-2'
 
     outputs:
       result: "${{ steps.current.outputs.result }}"
@@ -36,7 +36,7 @@ jobs:
     steps:
       - uses: nick-fields/assert-action@v1
         with:
-          expected: 'us-west-2'
+          expected: 'uw2'
           actual: "${{ needs.test.outputs.result }}"
 
   teardown:

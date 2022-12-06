@@ -5,11 +5,12 @@
 #
 
 # Name of this project
-name: example-github-action-composite
+name: github-action-aws-region-reduction-map
 
 # Tags of this project
 tags:
   - github-action
+  - aws
 
 # Logo for this project
 #logo: docs/logo.png
@@ -18,13 +19,13 @@ tags:
 license: "APACHE2"
 
 # Canonical GitHub repo
-github_repo: cloudposse/example-github-action-composite
+github_repo: cloudposse/github-action-aws-region-reduction-map
 
 # Badges to display
 badges:
   - name: "Latest Release"
-    image: "https://img.shields.io/github/release/cloudposse/example-github-action-composite.svg"
-    url: "https://github.com/cloudposse/example-github-action-composite/releases/latest"
+    image: "https://img.shields.io/github/release/cloudposse/github-action-aws-region-reduction-map.svg"
+    url: "https://github.com/cloudposse/github-action-aws-region-reduction-map/releases/latest"
   - name: "Slack Community"
     image: "https://slack.cloudposse.com/badge.svg"
     url: "https://slack.cloudposse.com"
@@ -32,22 +33,39 @@ badges:
 related: []
 
 # Short description of this project
-description: Template repository of composite GitHub Action
+description: Converts AWS region names from full names to abbreviations
 
 introduction: |-
-  This is template repository to create composite GitHub Actions. 
-  Feel free to use it as reference and starting point.
+  Converts AWS region names from full names to either
+  "fixed" (always 3 characters) or "short" (usually 4 or 5 characters)
+  abbreviations, following the same map as
+  https://github.com/cloudposse/terraform-aws-utils
+  
+  Short abbreviations are generally the same as official AWS 
+  availability zone IDs.
+  
+  Generally, AWS region names have 3 parts and the "fixed" abbreviation
+  is the first character of each part. Exceptions (due to collisions):
+  - Africa and China use second letter of first part.
+  - ap-south-1 is shortened to as0 to avoid conflict with ap-southeast-1
+  - cn-north-1 is shortened to nn0 to avoid conflict with cn-northwest-1
+  
+  You should be able to list all regions with this command:
+  aws ec2 describe-regions --all-regions --query "Regions[].{Name:RegionName}" --output text
+  but actually it leaves out GovCloud and China
+  See https://github.com/jsonmaur/aws-regions for more complete list
 
 references:
   - name: "github-actions-workflows"
     description: "Reusable workflows for different types of projects"
     url: "https://github.com/cloudposse/github-actions-workflows"
-  - name: "example-github-action-release-workflow"
-    description: "Example application with complicated release workflow"
-    url: "https://github.com/cloudposse/example-github-action-release-workflow"
+  - name: "geodesic"
+    description: "It’s a swiss army knife for creating and building consistent platforms to be shared across a team environment"
+    url: "https://github.com/cloudposse/geodesic"
 
 # How to use this project
 usage: |-
+  ## Convert AWS region (ex.: `us-west-2`) to fixed abbreviation - will be `uw2`.
   ```yaml
     name: Pull Request
     on:
@@ -59,14 +77,81 @@ usage: |-
       context:
         runs-on: ubuntu-latest
         steps:
-          - name: Example action
-            uses: cloudposse/example-github-action-composite@main
-            id: example
+          - uses: cloudposse/github-action-aws-region-reduction-map@main
+            id: aws_map
             with:
-              param1: true
+              region: 'us-west-2'
+              ## Format can be skipped - default format would be `fixed` if region is long 
+              format: 'fixed'
   
         outputs:
-          result: ${{ steps.example.outputs.result1 }}
+          result: ${{ steps.aws_map.outputs.result }}
+  ```
+
+  ## Convert AWS region (ex.: `us-west-2`) to short abbreviation - will be `usw2`.
+  ```yaml
+    name: Pull Request
+    on:
+      pull_request:
+        branches: [ 'main' ]
+        types: [opened, synchronize, reopened, closed, labeled, unlabeled]
+
+    jobs:
+      context:
+        runs-on: ubuntu-latest
+        steps:
+          - uses: cloudposse/github-action-aws-region-reduction-map@main
+            id: aws_map
+            with:
+              region: 'us-west-2'
+              format: 'short'
+  
+        outputs:
+          result: ${{ steps.aws_map.outputs.result }}
+  ```
+
+  ## Convert short AWS region (ex.: `usw2`) to long abbreviation - will be `us-west-2`.
+  ```yaml
+    name: Pull Request
+    on:
+      pull_request:
+        branches: [ 'main' ]
+        types: [opened, synchronize, reopened, closed, labeled, unlabeled]
+
+    jobs:
+      context:
+        runs-on: ubuntu-latest
+        steps:
+          - uses: cloudposse/github-action-aws-region-reduction-map@main
+            id: aws_map
+            with:
+              region: 'usw2'
+              format: 'long'
+  
+        outputs:
+          result: ${{ steps.aws_map.outputs.result }}
+  ```
+
+  ## Convert fixed AWS region (ex.: `uw2`) to long abbreviation - will be `us-west-2`.
+  ```yaml
+    name: Pull Request
+    on:
+      pull_request:
+        branches: [ 'main' ]
+        types: [opened, synchronize, reopened, closed, labeled, unlabeled]
+
+    jobs:
+      context:
+        runs-on: ubuntu-latest
+        steps:
+          - uses: cloudposse/github-action-aws-region-reduction-map@main
+            id: aws_map
+            with:
+              region: 'uw2'
+              format: 'long'
+  
+        outputs:
+          result: ${{ steps.aws_map.outputs.result }}
   ```
 
 include:
