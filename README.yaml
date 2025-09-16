@@ -184,8 +184,7 @@ usage: |-
           result: ${{ steps.aws_map.outputs.result }}
   ```
 
-include:
-  - "docs/github-action.md"
+include: []
 
 # Contributors to this project
 contributors:
