@@ -1,4 +1,4 @@
-FROM public.ecr.aws/docker/library/alpine:3.17.3
+FROM public.ecr.aws/docker/library/alpine:3.24.4
 
 RUN apk add bash
 
